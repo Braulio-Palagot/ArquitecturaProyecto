@@ -1,6 +1,7 @@
 package arquitecturaproyecto;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 
 public class principal extends javax.swing.JFrame {
     
@@ -13,9 +14,61 @@ public class principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Perfil");
         this.getContentPane().setLayout(new BorderLayout());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pnlForo.setVisible(false);
+        pnlEvento.setVisible(false);
+        pnlPerfil.setVisible(true);
         this.add(pnlPerfil, BorderLayout.CENTER);
-        this.pack();
+        this.add(pnlMenu, BorderLayout.EAST);
+        bttnPerfil.setVisible(false);
+        this.validate();
+        
+        bttnPerfil.addActionListener((ActionEvent e) -> {
+            changeToPerfil();
+        });
+        bttnForo.addActionListener((ActionEvent e) -> {
+            changeToForo();
+        });
+        bttnLogout.addActionListener((ActionEvent e) -> {
+            navigateToLogin();
+        });
+    }
+    
+    private void changeToForo() {
+        pnlForo.setVisible(true);
+        pnlEvento.setVisible(false);
+        pnlPerfil.setVisible(false);
+        
+        bttnForo.setVisible(false);
+        bttnPerfil.setVisible(true);
+        this.setTitle("Foro de Eventos");
+        this.add(pnlForo, BorderLayout.CENTER);
+        this.validate();
+    }
+    private void changeToPerfil() {
+        pnlForo.setVisible(false);
+        pnlEvento.setVisible(false);
+        pnlPerfil.setVisible(true);
+        
+        bttnForo.setVisible(true);
+        bttnPerfil.setVisible(false);
+        this.setTitle("Perfil");
+        this.add(pnlPerfil, BorderLayout.CENTER);
+        this.validate();
+    }
+    private void changeToEvento() {
+        pnlForo.setVisible(false);
+        pnlEvento.setVisible(true);
+        pnlPerfil.setVisible(false);
+        this.setTitle("Perfil");
+        this.add(pnlEvento, BorderLayout.CENTER);
+        this.validate();
+    }
+    private void navigateToLogin() {
+        loginRegistro frmLogin = new loginRegistro();
+        frmLogin.setExtendedState(MAXIMIZED_BOTH);
+        frmLogin.setVisible(true);
+        this.dispose();
     }
 
     /**
@@ -27,44 +80,44 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        pnlMenu = new javax.swing.JPanel();
+        bttnLogout = new javax.swing.JButton();
+        pnlNavigation = new javax.swing.JPanel();
+        bttnPerfil = new javax.swing.JButton();
+        bttnForo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1920, 1080));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMenu.setLayout(new java.awt.BorderLayout());
 
-        jButton2.setText("Cerrar sesión");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        bttnLogout.setText("Cerrar sesión");
+        bttnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                bttnLogoutActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, java.awt.BorderLayout.PAGE_END);
+        pnlMenu.add(bttnLogout, java.awt.BorderLayout.PAGE_END);
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+        pnlNavigation.setLayout(new java.awt.BorderLayout());
 
-        jButton3.setText("Perfil");
-        jPanel2.add(jButton3);
+        bttnPerfil.setText("Perfil");
+        pnlNavigation.add(bttnPerfil, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("Foro");
-        jPanel2.add(jButton1);
+        bttnForo.setText("Foro");
+        pnlNavigation.add(bttnForo, java.awt.BorderLayout.PAGE_START);
 
-        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        pnlMenu.add(pnlNavigation, java.awt.BorderLayout.PAGE_START);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_END);
+        getContentPane().add(pnlMenu, java.awt.BorderLayout.LINE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void bttnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnLogoutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_bttnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,10 +155,10 @@ public class principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton bttnForo;
+    private javax.swing.JButton bttnLogout;
+    private javax.swing.JButton bttnPerfil;
+    private javax.swing.JPanel pnlMenu;
+    private javax.swing.JPanel pnlNavigation;
     // End of variables declaration//GEN-END:variables
 }

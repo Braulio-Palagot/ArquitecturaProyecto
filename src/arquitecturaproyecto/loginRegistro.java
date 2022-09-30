@@ -13,9 +13,11 @@ public class loginRegistro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Iniciar Sesión");
         this.getContentPane().setLayout(new BorderLayout());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pnlLogin.setVisible(true);
+        pnlRegistro.setVisible(false);
         this.add(pnlLogin, BorderLayout.CENTER);
-        this.pack();
+        this.validate();
         
         pnlLogin.getBttnRegistrarse().addActionListener((ActionEvent e) -> {
             changeToRegister();
@@ -30,17 +32,19 @@ public class loginRegistro extends javax.swing.JFrame {
     }
     
     private void changeToRegister() {
-        this.remove(pnlLogin);
+        pnlLogin.setVisible(false);
+        pnlRegistro.setVisible(true);
         this.setTitle("Registrarse");
         this.add(pnlRegistro, BorderLayout.CENTER);
-        this.pack();
+        this.validate();
     }
     
     private void changeToLogin() {
-        this.remove(pnlRegistro);
+        pnlLogin.setVisible(true);
+        pnlRegistro.setVisible(false);
         this.setTitle("Iniciar Sesión");
         this.add(pnlLogin, BorderLayout.CENTER);
-        this.pack();
+        this.validate();
     }
     
     private void navigateToPrincipal() {
