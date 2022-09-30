@@ -1,18 +1,53 @@
 package arquitecturaproyecto;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class loginRegistro extends javax.swing.JFrame {
     
-    login pnlLogin = new login();
+    static login pnlLogin = new login();
+    static registro pnlRegistro = new registro();
 
     public loginRegistro() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Iniciar Sesión");
+        this.getContentPane().setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add(pnlLogin, BorderLayout.CENTER);
         this.pack();
+        
+        pnlLogin.getBttnRegistrarse().addActionListener((ActionEvent e) -> {
+            changeToRegister();
+        });
+        pnlLogin.getBttnIniciarSesion().addActionListener((ActionEvent e) -> {
+            // Revisar en la BD del usuario.
+            navigateToPrincipal();
+        });
+        pnlRegistro.getBttnRegresar().addActionListener((ActionEvent e) -> {
+            changeToLogin();
+        });
+    }
+    
+    private void changeToRegister() {
+        this.remove(pnlLogin);
+        this.setTitle("Registrarse");
+        this.add(pnlRegistro, BorderLayout.CENTER);
+        this.pack();
+    }
+    
+    private void changeToLogin() {
+        this.remove(pnlRegistro);
+        this.setTitle("Iniciar Sesión");
+        this.add(pnlLogin, BorderLayout.CENTER);
+        this.pack();
+    }
+    
+    private void navigateToPrincipal() {
+        principal frmPrincipal = new principal();
+        frmPrincipal.setExtendedState(MAXIMIZED_BOTH);
+        frmPrincipal.setVisible(true);
+        this.dispose();
     }
 
     /**
