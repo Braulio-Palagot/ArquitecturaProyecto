@@ -4,6 +4,8 @@
  */
 package arquitecturaproyecto;
 
+import javax.swing.*;
+
 /**
  *
  * @author ceffy
@@ -70,4 +72,17 @@ public class menu extends javax.swing.JPanel {
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlNavigation;
     // End of variables declaration//GEN-END:variables
+
+
+    public JButton getBttnForo() {
+        return bttnForo;
+    }
+
+    public JButton getBttnLogout() {
+        return bttnLogout;
+    }
+
+    public JButton getBttnPerfil() {
+        return bttnPerfil;
+    }
 }

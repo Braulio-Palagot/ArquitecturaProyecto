@@ -1,10 +1,11 @@
 package arquitecturaproyecto;
 
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
 public class principal extends javax.swing.JFrame {
-    
+
     private menu pnlMenu = new menu();
     private login pnlLogin = null;
     private registro pnlRegistro = null;
@@ -14,81 +15,158 @@ public class principal extends javax.swing.JFrame {
 
     public principal() {
         initComponents();
-        pnlLogin = new login();
-        pnlRegistro = new registro();
-        this.setTitle("Iniciar Sesión");
-        this.add(pnlLogin, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+
+        loadLoginRegister();
+        changeToLogin();
 
         pnlLogin.getBttnRegistrarse().addActionListener((ActionEvent e) -> {
-            changeToRegister();
-        });
-        pnlLogin.getBttnIniciarSesion().addActionListener((ActionEvent e) -> {
-            // Revisar en la BD del usuario.
+            changeToRegistro();
         });
         pnlRegistro.getBttnRegresar().addActionListener((ActionEvent e) -> {
             changeToLogin();
+        });
+        pnlRegistro.getBttnConfirmarRegistrar().addActionListener((ActionEvent e) -> {
+            // Agregar usuario a la base de datos.
+            changeToLogin();
+        });
+        pnlLogin.getBttnIniciarSesion().addActionListener((ActionEvent e) -> {
+            // Revisar en la BD del usuario.
+            unloadLoginRegister();
+            loadMain();
+            changeToPerfil();
+        });
+
+        pnlMenu.getBttnPerfil().addActionListener((ActionEvent e) -> {
+            changeToPerfil();
+        });
+        pnlMenu.getBttnForo().addActionListener((ActionEvent e) -> {
+            changeToForo();
+        });
+        pnlMenu.getBttnLogout().addActionListener((ActionEvent e) -> {
+            if (JOptionPane.showConfirmDialog(null, "¿Está seguro que desea cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION) == 0) {
+                unloadMain();
+                changeToLogin();
+            }
         });
         pnlRegistro.getBttnConfirmarRegistrar().addActionListener((ActionEvent e) -> {
             // Registrar en la BD del usuario.
         });
     }
 
-    private void changeToRegister() {
+    private void loadMain() {
+        if (pnlPerfil == null)
+            pnlPerfil = new perfil();
+        if (pnlForo == null) {
+            pnlForo = new foro();
+            pnlForo.getBttnEventoAnterior().addActionListener((ActionEvent e) -> {
+                // Cambiar el evento al anterior y asegurar que el botón de evento siguiente está habilitado.
+                if (!pnlForo.getBttnEventoSiguiente().isEnabled())
+                    pnlForo.getBttnEventoSiguiente().setEnabled(true);
+                // Si no hay otro evento anterior, deshabilitar el botón.
+                pnlForo.getBttnEventoAnterior().setEnabled(false);
+            });
+            pnlForo.getBttnEventoSiguiente().addActionListener((ActionEvent e) -> {
+                // Cambiar el evento al siguiente y asegurar que el botón de evento anterior está habilitado.
+                if (!pnlForo.getBttnEventoAnterior().isEnabled())
+                    pnlForo.getBttnEventoAnterior().setEnabled(true);
+                // Si no hay otro evento siguiente, deshabilitar el botón.
+                pnlForo.getBttnEventoSiguiente().setEnabled(false);
+            });
+            pnlForo.getBttnVerDetallesEvento().addActionListener((ActionEvent e) -> {
+                changeToEvento();
+            });
+        }
+        if (pnlEvento == null) {
+            pnlEvento = new eventos();
+            pnlEvento.getBttnPublicarComentario().addActionListener((ActionEvent e) -> {
+                // Agregar comentario a la base de datos.
+                // Mostrar dialog de éxito.
+                JOptionPane.showMessageDialog(this, "Comentario publicado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            });
+        }
+        this.add(pnlMenu, BorderLayout.EAST);
+        this.validate();
+    }
+
+    private void unloadMain() {
+        pnlPerfil.setVisible(false);
+        pnlForo.setVisible(false);
+        pnlEvento.setVisible(false);
+        pnlMenu.setVisible(false);
+        this.remove(pnlMenu);
+        this.remove(pnlPerfil);
+        this.remove(pnlForo);
+        this.remove(pnlEvento);
+        this.validate();
+    }
+
+    private void changeToPerfil() {
+        pnlMenu.setVisible(true);
+        pnlPerfil.setVisible(true);
+        pnlForo.setVisible(false);
+        pnlEvento.setVisible(false);
+        pnlMenu.getBttnPerfil().setVisible(false);
+        pnlMenu.getBttnForo().setVisible(true);
+        this.setTitle("Perfil");
+        this.add(pnlPerfil, BorderLayout.CENTER);
+        this.validate();
+    }
+
+    private void changeToForo() {
+        pnlMenu.setVisible(true);
+        pnlPerfil.setVisible(false);
+        pnlForo.setVisible(true);
+        pnlEvento.setVisible(false);
+        pnlMenu.getBttnPerfil().setVisible(true);
+        pnlMenu.getBttnForo().setVisible(false);
+        pnlForo.getBttnEventoAnterior().setEnabled(false);
+        this.setTitle("Foro");
+        this.add(pnlForo, BorderLayout.CENTER);
+        this.validate();
+    }
+
+    private void changeToEvento() {
+        pnlMenu.setVisible(true);
+        pnlPerfil.setVisible(false);
+        pnlForo.setVisible(false);
+        pnlEvento.setVisible(true);
+        pnlMenu.getBttnPerfil().setVisible(true);
+        pnlMenu.getBttnForo().setVisible(true);
+        this.setTitle("Detalles del Evento");
+        this.add(pnlEvento, BorderLayout.CENTER);
+        this.validate();
+    }
+
+    private void loadLoginRegister() {
+        if (pnlLogin == null)
+            pnlLogin = new login();
+        if (pnlRegistro == null)
+            pnlRegistro = new registro();
+    }
+
+    private void unloadLoginRegister() {
+        pnlLogin.setVisible(false);
+        pnlRegistro.setVisible(false);
+        this.remove(pnlLogin);
+        this.remove(pnlRegistro);
+        this.validate();
+    }
+
+    private void changeToRegistro() {
         pnlLogin.setVisible(false);
         pnlRegistro.setVisible(true);
-        this.setTitle("Registrarse");
         this.add(pnlRegistro, BorderLayout.CENTER);
+        this.setTitle("Registrarse");
         this.validate();
     }
 
     private void changeToLogin() {
         pnlLogin.setVisible(true);
         pnlRegistro.setVisible(false);
-        this.setTitle("Iniciar Sesión");
         this.add(pnlLogin, BorderLayout.CENTER);
+        this.setTitle("Iniciar Sesión");
         this.validate();
-    }
-    
-    private void changeToForo() {
-        /*pnlForo.setVisible(true);
-        pnlEvento.setVisible(false);
-        pnlPerfil.setVisible(false);
-        
-        bttnForo.setVisible(false);
-        bttnPerfil.setVisible(true);
-        this.setTitle("Foro de Eventos");
-        this.add(pnlForo, BorderLayout.CENTER);
-        this.validate();*/
-    }
-    private void changeToPerfil() {
-        /*pnlForo.setVisible(false);
-        pnlEvento.setVisible(false);
-        pnlPerfil.setVisible(true);
-        
-        bttnForo.setVisible(true);
-        bttnPerfil.setVisible(false);
-        this.setTitle("Perfil");
-        this.add(pnlPerfil, BorderLayout.CENTER);
-        this.validate();*/
-    }
-    private void changeToEvento() {
-        pnlForo.setVisible(false);
-        pnlEvento.setVisible(true);
-        pnlPerfil.setVisible(false);
-        this.setTitle("Perfil");
-        this.add(pnlEvento, BorderLayout.CENTER);
-        this.validate();
-    }
-    private void navigateToLogin() {
-//        if (frmLogin == null)
-//            frmLogin = new loginRegistro();
-//        else {
-//            frmLogin = null;
-//            frmLogin = new loginRegistro();
-//        }
-//        frmLogin.setExtendedState(MAXIMIZED_BOTH);
-//        frmLogin.setVisible(true);
-//        this.dispose();
     }
 
     /**
@@ -100,7 +178,6 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setLayout(new java.awt.BorderLayout());
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1920, 1080));
 
@@ -114,7 +191,7 @@ public class principal extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

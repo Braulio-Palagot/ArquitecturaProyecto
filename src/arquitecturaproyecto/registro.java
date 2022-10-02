@@ -56,7 +56,7 @@ public class registro extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1920, 1080));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,22 +85,22 @@ public class registro extends javax.swing.JPanel {
 
         jLabel4.setText("Teléfono");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 390, -1, -1));
-        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 390, 140, -1));
+        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 390, 140, -1));
 
         jLabel5.setText("Correo");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 430, -1, -1));
-        add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 140, -1));
+        add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 430, 140, -1));
 
         jLabel6.setText("Contraseña");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 470, -1, -1));
-        add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 470, 140, -1));
+        add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 470, 140, -1));
 
         jLabel7.setText("Género");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 60, -1));
 
         jLabel8.setText("Repetir contraseña");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 510, -1, -1));
-        add(txtContraseniaRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 510, 140, -1));
+        add(txtContraseniaRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 510, 140, -1));
 
         jLabel9.setText("Registrarse");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, -1, -1));
@@ -116,7 +116,7 @@ public class registro extends javax.swing.JPanel {
         });
         add(bttnConfirmarRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 600, -1, -1));
 
-        cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "Otro" }));
         cmbGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGeneroActionPerformed(evt);
