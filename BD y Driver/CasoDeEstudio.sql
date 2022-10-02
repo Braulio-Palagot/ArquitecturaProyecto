@@ -11,6 +11,7 @@ CREATE TABLE Usuario (
                 Correo VARCHAR(50) NOT NULL,
                 apellidoPaternoUsuario VARCHAR(30) NOT NULL,
                 apellidoMaternoUsuario VARCHAR(30) NOT NULL,
+                contrasenia varchar(10) NOT NULL,
                 PRIMARY KEY (ID_Usuario)
 );
 
@@ -18,7 +19,7 @@ CREATE TABLE Usuario (
 CREATE TABLE Ponencia (
                 ID_Ponencia INT AUTO_INCREMENT NOT NULL,
                 tema VARCHAR(50) NOT NULL,
-                documentacion VARCHAR(50) NOT NULL,
+                documentacion VARCHAR(100) NOT NULL,
                 materialApoyo VARCHAR(60) NOT NULL,
                 PRIMARY KEY (ID_Ponencia)
 );
@@ -26,6 +27,7 @@ CREATE TABLE Ponencia (
 
 CREATE TABLE Evento (
                 ID_Evento INT AUTO_INCREMENT NOT NULL,
+                nombre varchar(50) not null,
                 direccion VARCHAR(60) NOT NULL,
                 fecha DATE NOT NULL,
                 ID_Ponencia int NOT NULL,
@@ -37,7 +39,6 @@ CREATE TABLE Evento (
 
 CREATE TABLE Comentario (
                 ID_Comentario INT AUTO_INCREMENT NOT NULL,
-                Valoracion NUMERIC NOT NULL,
                 Comentario VARCHAR(60) NOT NULL,
                 ID_Evento int NOT NULL,
                 ID_Usuario INT NOT NULL,
@@ -99,9 +100,9 @@ REFERENCES Evento (ID_Evento)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-INSERT INTO `casoestudiobd`.`usuario` (`ID_Usuario`, `nombreUsuario`, `Correo`, `apellidoPaternoUsuario`, `apellidoMaternoUsuario`) VALUES ('1', 'Aldo', 'ajzvporta123@gmail.com', 'Sanchez', 'Benitez');
-INSERT INTO `casoestudiobd`.`usuario` (`ID_Usuario`, `nombreUsuario`, `Correo`, `apellidoPaternoUsuario`, `apellidoMaternoUsuario`) VALUES ('2', 'Braulio', 'brau@gmail.com', 'Palagot ', 'Hernandez');
-INSERT INTO `casoestudiobd`.`usuario` (`ID_Usuario`, `nombreUsuario`, `Correo`, `apellidoPaternoUsuario`, `apellidoMaternoUsuario`) VALUES ('3', 'Jocelyn', 'joce', 'Flores', 'Lopez');
+INSERT INTO `casoestudiobd`.`usuario` (`ID_Usuario`, `nombreUsuario`, `Correo`, `apellidoPaternoUsuario`, `apellidoMaternoUsuario`,`contrasenia`) VALUES ('1', 'Aldo', 'ajzvporta123@gmail.com', 'Sanchez', 'Benitez','123450');
+INSERT INTO `casoestudiobd`.`usuario` (`ID_Usuario`, `nombreUsuario`, `Correo`, `apellidoPaternoUsuario`, `apellidoMaternoUsuario`, `contrasenia`) VALUES ('2', 'Braulio', 'brau@gmail.com', 'Palagot ', 'Hernandez','123450');
+INSERT INTO `casoestudiobd`.`usuario` (`ID_Usuario`, `nombreUsuario`, `Correo`, `apellidoPaternoUsuario`, `apellidoMaternoUsuario`, `contrasenia`) VALUES ('3', 'Jocelyn', 'jocelope@hotmail.com', 'Flores', 'Lopez','123450');
 
 INSERT INTO `casoestudiobd`.`ponencia` (`ID_Ponencia`, `tema`, `documentacion`, `materialApoyo`) VALUES ('1', 'Es carrera no carrerita', 'Hablaremos sobre como la vida universitaria no es lo que siempre esperas', 'Presentación');
 INSERT INTO `casoestudiobd`.`ponencia` (`ID_Ponencia`, `tema`, `documentacion`, `materialApoyo`) VALUES ('2', 'Como ser creativo', 'Tocaremos el tema de como podemos activar nuestra creatividad', 'Presentación');
@@ -114,14 +115,14 @@ INSERT INTO `casoestudiobd`.`fondos` (`ID_Fondos`, `insumo`, `ID_Evento`) VALUES
 INSERT INTO `casoestudiobd`.`fondos` (`ID_Fondos`, `insumo`, `ID_Evento`) VALUES ('5', 'Proyector', '2');
 INSERT INTO `casoestudiobd`.`fondos` (`ID_Fondos`, `insumo`, `ID_Evento`) VALUES ('6', 'Bocinas', '2');
 
-INSERT INTO `casoestudiobd`.`evento` (`ID_Evento`, `direccion`, `fecha`, `ID_Ponencia`, `ID_Fondos`, `ID_Usuario`) VALUES ('1', 'Calle Enrique Segoviano', '2022-09-30', '1', '1', '1');
-INSERT INTO `casoestudiobd`.`evento` (`ID_Evento`, `direccion`, `fecha`, `ID_Ponencia`, `ID_Fondos`, `ID_Usuario`) VALUES ('2', 'ITO', '2022-09-09', '2', '3', '2');
-INSERT INTO `casoestudiobd`.`evento` (`ID_Evento`, `direccion`, `fecha`, `ID_Ponencia`, `ID_Fondos`, `ID_Usuario`) VALUES ('3', 'ITO', '2022-09-28', '3', '4', '3');
+INSERT INTO `casoestudiobd`.`evento` (`ID_Evento`, `nombre` ,`direccion`, `fecha`, `ID_Ponencia`, `ID_Fondos`, `ID_Usuario`) VALUES ('1', 'Dia del programador','Calle Enrique Segoviano', '2022-09-30', '1', '1', '1');
+INSERT INTO `casoestudiobd`.`evento` (`ID_Evento`, `nombre`,`direccion`, `fecha`, `ID_Ponencia`, `ID_Fondos`, `ID_Usuario`) VALUES ('2', 'Semana de la motivación' 'ITO', '2022-09-09', '2', '3', '2');
+INSERT INTO `casoestudiobd`.`evento` (`ID_Evento`, `nombre`,`direccion`, `fecha`, `ID_Ponencia`, `ID_Fondos`, `ID_Usuario`) VALUES ('3', 'Dia de conferencias','ITO', '2022-09-28', '3', '4', '3');
 
 INSERT INTO `casoestudiobd`.`encuesta` (`ID_Encuesta`, `Respuesta`, `ID_Evento`, `ID_Ponencia`) VALUES ('1', 'Me gusto mucho el evento', '1', '1');
 INSERT INTO `casoestudiobd`.`encuesta` (`ID_Encuesta`, `Respuesta`, `ID_Evento`, `ID_Ponencia`) VALUES ('2', 'Puede mejorar', '2', '2');
 INSERT INTO `casoestudiobd`.`encuesta` (`ID_Encuesta`, `Respuesta`, `ID_Evento`, `ID_Ponencia`) VALUES ('3', 'No me gusto para nada', '3', '3');
 
-INSERT INTO `casoestudiobd`.`comentario` (`ID_Comentario`, `Valoracion`, `Comentario`, `ID_Evento`, `ID_Usuario`) VALUES ('1', '10', 'Me gusto mucho el evento', '1', '1');
-INSERT INTO `casoestudiobd`.`comentario` (`ID_Comentario`, `Valoracion`, `Comentario`, `ID_Evento`, `ID_Usuario`) VALUES ('2', '8', 'Muy impuntuales', '2', '2');
-INSERT INTO `casoestudiobd`.`comentario` (`ID_Comentario`, `Valoracion`, `Comentario`, `ID_Evento`, `ID_Usuario`) VALUES ('3', '6', 'Falto mas organizacion', '3', '3');
+INSERT INTO `casoestudiobd`.`comentario` (`ID_Comentario`,  `Comentario`, `ID_Evento`, `ID_Usuario`) VALUES ('1',  'Me gusto mucho el evento', '1', '1');
+INSERT INTO `casoestudiobd`.`comentario` (`ID_Comentario`,  `Comentario`, `ID_Evento`, `ID_Usuario`) VALUES ('2',  'Muy impuntuales', '2', '2');
+INSERT INTO `casoestudiobd`.`comentario` (`ID_Comentario`, `Comentario`, `ID_Evento`, `ID_Usuario`) VALUES ('3',  'Falto mas organizacion', '3', '3');
