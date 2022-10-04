@@ -53,12 +53,12 @@ public class principal extends javax.swing.JFrame {
             String contrasenia = pnlRegistro.getTxtContrasenia().getText().trim();
             String contraseniaRep = pnlRegistro.getTxtContraseniaRep().getText().trim();
             
-            if (nombreUsuario == null ||
-                apPaterno == null ||
-                apMaterno == null ||
-                correo == null ||
-                contrasenia == null ||
-                contraseniaRep == null) {
+            if (nombreUsuario.isEmpty() ||
+                apPaterno.isEmpty() ||
+                apMaterno.isEmpty() ||
+                correo.isEmpty() ||
+                contrasenia.isEmpty() ||
+                contraseniaRep.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe capturar todos los datos.", "Faltan Datos", JOptionPane.ERROR_MESSAGE);
             } else {
                 dao.conectarBD(clase, url, user, pass);
